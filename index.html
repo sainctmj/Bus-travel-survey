@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lusaka–Livingstone Bus Travel Survey</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .step { display: none; }
+        .step.active { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- Header Section -->
+    <header class="bg-emerald-700 text-white py-6 px-4 shadow-md text-center">
+        <h1 class="text-2xl font-bold">Lusaka–Livingstone Bus Travel Survey</h1>
+        <p class="text-emerald-100 text-sm mt-1">UNILUS • BUSINESS ENVIRONMENT • CLASS RESEARCH PROJECT</p>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-2xl w-full mx-auto bg-white p-6 my-8 rounded-xl shadow-md flex-grow">
+        
+        <!-- Welcome Screen (Step 0) -->
+        <div id="step-0" class="step active text-center py-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Lusaka → Livingstone</h2>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+                We're first-year Business Environment students studying how reliable advertised bus departure times and fares really are on this route, and whether passengers would use SMS, an app, or USSD for live updates.
+            </p>
+            <div class="flex justify-center gap-4 text-xs font-semibold text-gray-500 mb-8 uppercase tracking-wider">
+                <span>⏱ ~20 MIN</span>
+                <span>•</span>
+                <span>🔒 ANONYMOUS</span>
+                <span>•</span>
+                <span>📝 21 QUESTIONS</span>
+            </div>
+            <p class="text-sm text-gray-500 mb-6 italic">No names, phone numbers, or emails are collected — every answer is anonymous and used only for this academic project.</p>
+            <button type="button" onclick="nextStep(1)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-8 rounded-lg transition">Start Survey</button>
+        </div>
+
+        <!-- Netlify Integrated Form Setup -->
+        <form id="surveyForm" name="lusaka-livingstone-survey" data-netlify="true" method="POST" onsubmit="submitSurvey(event)">
+            
+            <!-- Section A: Travel Experience (Step 1) -->
+            <div id="step-1" class="step space-y-6">
+                <h3 class="text-lg font-bold text-emerald-800 border-b pb-2">A. Travel experience (Questions 1–3)</h3>
+                
+                <div>
+                    <label class="block font-medium mb-2">Q1. Have you travelled on the Lusaka–Livingstone route, or between these two towns, in the last 2 years?</label>
+                    <div class="space-x-4">
+                        <label class="inline-flex items-center"><input type="radio" name="q1" value="Yes" onclick="toggleQ1FollowUp(true)" class="text-emerald-600 focus:ring-emerald-500"> <span class="ml-2">Yes</span></label>
+                        <label class="inline-flex items-center"><input type="radio" name="q1" value="No" onclick="toggleQ1FollowUp(false)" class="text-emerald-600 focus:ring-emerald-500"> <span class="ml-2">No</span></label>
+                    </div>
+                </div>
+
+                <div id="q1-followup" class="hidden">
+                    <label class="block font-medium mb-2">How long has it been since you last travelled using this route, or between these two towns?</label>
+                    <select name="q1_time" class="w-full p-2 border rounded-md bg-gray-50">
+                        <option value="">Select option...</option>
+                        <option>A month ago</option>
+                        <option>3 months ago</option>
+                        <option>6 months ago</option>
+                        <option>1 year ago</option>
+                        <option>1 year and 6 months ago</option>
+                    </select>
+                </div>
+
+                <div id="q1-no-notice" class="hidden p-4 bg-yellow-50 text-yellow-800 rounded-md">
+                    That's it for you — thank you for your time! Please click next to finish.
+                </div>
+
+                <div id="main-travel-fields" class="space-y-6">
+                    <div>
+                        <label class="block font-medium mb-2">Q2. How often do you travel on this route?</label>
+                        <select name="q2" class="w-full p-2 border rounded-md bg-gray-50">
+                            <option value="">Select option...</option>
+                            <option>Daily</option>
+                            <option>Weekly</option>
+                            <option>Monthly</option>
+                            <option>A few times a year</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-medium mb-2">Q3. What is the main purpose of your travel?</label>
+                        <select name="q3" class="w-full p-2 border rounded-md bg-gray-50">
+                            <option value="">Select option...</option>
+                            <option>Work</option>
+                            <option>Business or Trading</option>
+                            <option>Tourism</option>
+                            <option>School</option>
+                            <option>Family</option>
+                            <option>Health</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-medium mb-2">Q3B. Which bus operator do you prefer on this route?</label>
+                        <select name="q3b" class="w-full p-2 border rounded-md bg-gray-50">
+                            <option value="">Select option...</option>
+                            <option>Mazhandu Family Bus Services</option>
+                            <option>Shalom Bus Services</option>
+                            <option>UBZ (United Bus Company Zambia)</option>
+                            <option>Power Tools Logistics</option>
+                            <option>Jordan Bus Service (Jonda Bus Tours)</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex justify-between mt-6">
+                    <button type="button" onclick="nextStep(0)" class="text-gray-500 hover:underline">Back</button>
+                    <button type="button" onclick="goToStepB()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-6 rounded-md">Next</button>
+                </div>
+            </div>
+
+            <!-- Section B: Bus Fares (Step 2) -->
+            <div id="step-2" class="step space-y-6">
+                <h3 class="text-lg font-bold text-emerald-800 border-b pb-2">B. Bus fares (Questions 4–6)</h3>
+                
+                <div>
+                    <label class="block font-medium mb-2">Q4. Roughly how much did you pay the last time you travelled? (ZMW)</label>
+                    <input type="number" name="q4" placeholder="Amount in ZMW" class="w-full p-2 border rounded-md bg-gray-50">
+                </div>
+
+                <div>
+                    <label class="block font-medium mb-2">Q5. Have you paid a different amount for this same journey on another occasion?</label>
+                    <div class="space-x-4 mb-2">
+                        <label class="inline-flex items-center"><input type="radio" name="q5" value="Yes" class="text-emerald-600"> <span class="ml-2">Yes</span></label>
+                        <label class="inline-flex items-center"><input type="radio" name="q5" value="No" class="text-emerald-600"> <span class="ml-2">No</span></label>
+                    </div>
+                    <input type="number" name="q5_amount" placeholder="Alternative Amount in ZMW" class="w-full p-2 border rounded-md bg-gray-50">
+                </div>
+
+                <div>
+                    <label class="block font-medium mb-2">Q6. If the fare changed, when did it go up?</label>
+                    <select name="q6" class="w-full p-2 border rounded-md bg-gray-50">
+                        <option value="">Select option...</option>
+                        <option>Month-end</option>
+                        <option>Fridays and weekends</option>
+                        <option>Holidays</option>
+                        <option>When it rains</option>
+                        <option>When I was in a hurry</option>
+                        <option>It has not changed</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div class="flex justify-between mt-6">
+                    <button type="button" onclick="nextStep(1)" class="text-gray-500 hover:underline">Back</button>
+                    <button type="button" onclick="nextStep(3)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-6 rounded-md">Next</button>
+                </div>
+            </div>
+
+            <!-- Section C: Departure Times & Waiting (Step 3) -->
+            <div id="step-3" class="step space-y-6">
+                <h3 class="text-lg font-bold text-emerald-800 border-b pb-2">C. Departure times & waiting (Questions 7–10)</h3>
+                
+                <div>
+                    <label class="block font-medium mb-2">Q7. The last time you travelled, what time were you told the bus would leave?</label>
+                    <input type="time" name="q7" class="w-full p-2 border rounded-md bg-gray-50">
+                </div>
+
+                <div>
+                    <label class="block font-medium mb-2">Q8. What time did it actually leave?</label>
+                    <input type="time" name="q8" class="w-full p-2 border rounded-md bg-gray-50">
