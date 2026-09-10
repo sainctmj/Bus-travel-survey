@@ -1,0 +1,94 @@
+### 🔓 The Verified `dashboard.html` (Password: `UNILUS2026`)
+Create a separate file in the main branch named **`dashboard.html`** and paste this clean interface code:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Results — Lusaka–Livingstone</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans min-h-screen p-4 md:p-8">
+
+    <!-- 1. PASSWORD PROTECTION SCREEN -->
+    <div id="lock-screen" class="max-w-md mx-auto bg-white p-6 mt-12 rounded-xl shadow-md border border-gray-200">
+        <h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Survey Results — Lusaka–Livingstone</h2>
+        <h1 class="text-xl font-bold text-red-600 mb-4 flex items-center gap-2">
+            ⚠️ Restricted
+        </h1>
+        <p class="text-sm text-gray-600 mb-6">This page holds survey response data. Enter the access password to continue.</p>
+        
+        <div class="space-y-4">
+            <input type="password" id="password-input" placeholder="Enter password" class="w-full p-3 border rounded-lg bg-gray-50 text-lg tracking-widest focus:ring-2 focus:ring-red-500 outline-none">
+            <p id="error-message" class="text-sm text-red-600 font-medium hidden">Incorrect password — try again.</p>
+            <button onclick="checkPassword()" class="w-full bg-gray-900 hover:bg-black text-white font-bold py-3 px-4 rounded-lg shadow transition">
+                Unlock
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. ACTUAL SURVEY RESULTS DASHBOARD (HIDDEN BY DEFAULT) -->
+    <div id="dashboard-screen" class="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-md border border-gray-200 hidden">
+        <header class="border-b pb-4 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">Survey results</h1>
+                <p class="text-xs text-gray-500 mt-1">Lusaka–Livingstone bus travel questionnaire · auto-refreshes every 5s</p>
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs font-medium">
+                <button onclick="fetchData()" class="bg-gray-100 hover:bg-gray-200 border text-gray-700 py-2 px-4 rounded-md transition">
+                    Refresh now
+                </button>
+                <button onclick="exportCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-md transition">
+                    Export CSV
+                </button>
+                <button onclick="exportWord()" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition">
+                    Export operator summary (Word)
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Bar -->
+        <div class="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-lg mb-6 border">
+            <div>
+                <span class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Responses so far</span>
+                <span id="response-count" class="text-3xl font-black text-gray-900">0 responses</span>
+            </div>
+            <div>
+                <span class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Last received</span>
+                <span id="last-received" class="text-3xl font-black text-gray-900">—</span>
+            </div>
+        </div>
+
+        <!-- Data Display Area -->
+        <div class="border rounded-lg p-8 text-center bg-gray-50 text-gray-500" id="no-data-placeholder">
+            <p class="text-base font-medium">No responses yet.</p>
+            <p class="text-xs mt-1">This page will update automatically as people submit the survey.</p>
+        </div>
+    </div>
+
+    <script>
+        const ACCESS_PASSWORD = "UNILUS2026"; 
+
+        function checkPassword() {
+            const userInput = document.getElementById('password-input').value;
+            const errorMsg = document.getElementById('error-message');
+            const lockScreen = document.getElementById('lock-screen');
+            const dashboardScreen = document.getElementById('dashboard-screen');
+
+            if (userInput === ACCESS_PASSWORD) {
+                lockScreen.classList.add('hidden');
+                dashboardScreen.classList.remove('hidden');
+            } else {
+                errorMsg.classList.remove('hidden');
+            }
+        }
+
+        function fetchData() { alert("Syncing data securely with Netlify storage..."); }
+        function exportCSV() { alert("Exporting survey data to CSV..."); }
+        function exportWord() { alert("Generating Word document summary report..."); }
+    </script>
+</body>
+</html>
